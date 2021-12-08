@@ -1,4 +1,4 @@
-# Veramo credential-LD sample
+# Veramo credential-LD sample (with did:ethr)
 
 Sample code for issuing and verifying a JSON-LD credential with Veramo. See [veramo.io](https://veramo.io) for an
 introduction to Veramo.
