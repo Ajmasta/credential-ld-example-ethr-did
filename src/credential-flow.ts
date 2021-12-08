@@ -11,6 +11,11 @@ export async function createDID(agent: TAgent<IDIDManager>): Promise<IIdentifier
   return identifier
 }
 
+export async function createEthrDID(agent: TAgent<IDIDManager>): Promise<IIdentifier> {
+  const identifier = await agent.didManagerCreate({provider:"did:ethr:rinkeby"})
+  return identifier
+}
+
 /**
  * Issue a JSON-LD Verifiable Credential using the DID managed by the agent
  *
@@ -36,7 +41,20 @@ export async function createLDCredential(issuer: IIdentifier, agent: TAgent<ICre
   })
   return verifiableCredential
 }
-
+export async function createLDCredentialWithEthrIssuer(issuer: IIdentifier, agent: TAgent<ICredentialIssuer>): Promise<VerifiableCredential> {
+  const credential: CredentialPayload = {
+    '@context': [MY_CUSTOM_CONTEXT_URI],
+    issuer: issuer.did,
+    credentialSubject: {
+      "nothing": "else matters" // the `nothing` property is defined in the custom context (See ./setup.ts)
+    }
+  }
+  const verifiableCredential = await agent.createVerifiableCredential({
+    credential,
+    proofFormat: 'lds' // use LD Signatures as proof
+  })
+  return verifiableCredential
+}
 /**
  * Verify a credential using the agent.
  *
