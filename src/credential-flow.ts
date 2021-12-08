@@ -63,6 +63,7 @@ export async function createLDCredentialWithEthrIssuer(issuer: IIdentifier, agen
  * Document` of the credential issuer during verification to obtain the verification method data specified by the
  * `proof` property of the credential.
  *
+ * Note: For the credential issued with a did:ethr, the easiest method is to add  VeramoEcdsaSecp256k1RecoverySignature2020 in your agent setup. Else you won't be able to actually verify the credential.
  * @param credential
  * @param agent
  */
